@@ -1,4 +1,4 @@
-#include <Armadillo>
+#include <armadillo>
 #include <fstream>
 
 using namespace arma;
@@ -13,11 +13,12 @@ vec trimul(double a, double b, double c, vec v)
   int n = v.n_elem;
   vec u(n);
   
-  for(int i = 0; i < n; i++)
+  u(0) = b*v(0) + c*v(1);
+  for(int i = 1; i < n-1; i++)
     {
-      u(i) = a*v(i-1) + b*v(i) + c*v(i-1);
+      u(i) = a*v(i-1) + b*v(i) + c*v(i+1);
     }
-  
+  u(n-1) = a*v(n-2) + b*v(n-1);
   return u;
 }
 
@@ -94,14 +95,30 @@ void solve(double dt, double dx, double T, vec v,
 
 int main ()
 {
-  double dt = 1;
-  double dx = 1;
-  double T = 10;
-  vec v();
-  //fill v
+  // double dt = 1;
+  // double dx = 1;
+  // double T = 10;
+  // vec v();
+  // //fill v
   
-  solve (dt,dx,T,v,*ForwardEuler,"ForwardEuler.dat")
+  // solve(dt,dx,T,v,*ForwardEuler,"ForwardEuler.dat");
   
+  vec v = randu<vec>(3);
+  double a = v(0);
+  double b = v(1);
+  double c = v(2);
+  mat A = zeros<mat>(3,3);
+  A.diag(-1).fill(a);  
+  A.diag().fill(b);
+  A.diag(1).fill(c);
+  v = randu<vec>(3);
+  vec u = vec(3);
+  vec w = vec(3);
+
+  cout<< (A*v == trimul(a,b,c,v))<<endl;
+  solve(w,A,v);
+  trisolve(a,b,c,u,v);
+  cout<<(w == u);
 
   return 0;
 }
