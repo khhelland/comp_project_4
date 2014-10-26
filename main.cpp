@@ -39,16 +39,16 @@ void trisolve(double a, double b, double c, vec &u, vec v)
   //First: make the matrix upper diagonal:
   for(int i=1; i<n; i++)
     {
-      bv(i+1) -= ac/bv(i);
-      v(i+1)  -= a*v(i)/bv(i);
+      bv(i) -= ac/bv(i-1);
+      v(i)  -= a*v(i-1)/bv(i-1);
     }
   
   //Backward substitution to obtain u
-  u(n) = v(n)/bv(n);
+  u(n-1) = v(n-1)/bv(n-1);
   
-  for(int i= (n-1); i>0 ; i--)
+  for(int i= (n-2); i>=0 ; i--)
     {
-      u(i) = (v(i) - a*u(i+1))/bv(i);
+      u(i) = (v(i) - c*u(i+1))/bv(i);
     }
 }
 
@@ -115,10 +115,12 @@ int main ()
   vec u = vec(3);
   vec w = vec(3);
 
-  cout<< (A*v == trimul(a,b,c,v))<<endl;
+  //cout << A << a;
+  //cout<< (A*v == trimul(a,b,c,v))<<endl;
   solve(w,A,v);
+  //cout<<w;
   trisolve(a,b,c,u,v);
-  cout<<(w == u);
+  cout<<w<<endl<<u;
 
   return 0;
 }
