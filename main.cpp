@@ -21,8 +21,8 @@ void BackwardEuler(double alpha, vec &u)
 
 void CrankNicholson(double alpha, vec &u)
 {
-  ForwardEuler(alpha, u);
-  BackwardEuler(alpha,u);
+  ForwardEuler(alpha/2, u);
+  BackwardEuler(alpha/2,u);
 }
 
 
