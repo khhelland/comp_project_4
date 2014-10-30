@@ -39,20 +39,21 @@ void solve(double dt, double dx, int N, vec v,
     {
       method(alpha,v);
       
-      if (((n+1)%20) == 0)
-        out << v.t();
+      //if (((n+1)%20) == 0)
+      out << v.t();
     }
 }
 
 int main ()
 {
-  double dt = 0.1;
-  double dx = 1;
-  int N  = 100;
-  vec v(10);
+  double dt = 0.01;
+  double dx = 0.1;
+  int N  = 300;
+  int n = 9;
+  vec v(n);
   //fill v
-  for(int i = 0; i < 10; i++)
-    v(i) = i*9 - i*i;
+  for(int i = 0; i < n ; i++)
+    v(i) = -1 + (i+1)*dx;
   
   solve(dt,dx,N,v,*ForwardEuler,"ForwardEuler.dat");
   
