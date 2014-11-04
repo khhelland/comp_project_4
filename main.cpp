@@ -1,5 +1,6 @@
 #include <armadillo>
 #include <fstream>
+#include <time.h>
 #include "tridiag.h"
 
 using namespace arma;
@@ -22,57 +23,55 @@ void BackwardEuler(double alpha, vec &u)
 void CrankNicholson(double alpha, vec &u)
 {
   ForwardEuler(alpha/2, u);
-  BackwardEuler(alpha/2,u);
+  BackwardEuler(alpha/2, u);
 }
 
 
-void solve(double dt, double dx, int N, vec v,
+void solve(double dt, double dx, double T, vec v,
            void (*method)(double, vec&),
            const char* outfile )
 {
   ofstream out(outfile);
-  out<<v.t();
+  //out<<v.t();
   double alpha = dt/(dx*dx);
   
   
-  for(int n=0; n<N; n++)
+  for(double t=0; t<T; t+=dt)
     {
       method(alpha,v);
       
-      //if (((n+1)%20) == 0)
-      out << v.t();
+      if (abs((t-0.02)) < 1e-14) out << v.t();
+      else if ((abs(t - 0.5)) < 1e-14) out<<v.t();
+      //out << v.t();
     }
 }
 
 int main ()
 {
-  double dt = 0.01;
+  double dt = 0.001;
   double dx = 0.1;
-  int N  = 300;
+  double T  = 2;
   int n = 9;
   vec v(n);
   //fill v
   for(int i = 0; i < n ; i++)
     v(i) = -1 + (i+1)*dx;
+ 
+  clock_t start, mid1, mid2, end;
+  start = clock();
+  solve(dt, dx, T, v, *ForwardEuler, "ForwardEuler.dat");
+  mid1 = clock();
+  solve(dt, dx, T, v, *BackwardEuler, "BackwardEuler.dat");
+  mid2 = clock();
+  solve(dt, dx, T, v, *CrankNicholson, "CrankNicholson.dat");
+  end = clock();
   
-  solve(dt,dx,N,v,*ForwardEuler,"ForwardEuler.dat");
+  double cps = CLOCKS_PER_SEC;
+  double FEtime = (mid1-start)/cps;
+  double BEtime = (mid2-mid1)/cps;
+  double CNtime = (end-mid2)/cps;
   
-  // vec v = randu<vec>(3);
-  // double a = v(0);
-  // double b = v(1);
-  // double c = v(2);
-  // mat A = zeros<mat>(3,3);
-  // A.diag(-1).fill(a);  
-  // A.diag().fill(b);
-  // A.diag(1).fill(c);
-  // v = randu<vec>(3);
-  // vec u = vec(3);
-  // trisolve(a,b,c,u,v);
-  // vec w = vec(3);
-  // solve(w,A,v);
-
-  // cout << u<<endl<<w;
-  
+  cout << FEtime <<"\t" << BEtime << "\t" <<CNtime<<endl;
 
   return 0;
 }
