@@ -4,7 +4,7 @@ import os,sys
 from math import pi
 
 def sumx(n):
-    a = ((np.sin(n*pi) - n*pi)/(n*pi)**2)*np.sin(n*pi*x)
+    a = 2*((np.sin(n*pi) - n*pi)/(n*pi)**2)*np.sin(n*pi*x)
     return a
 def sumt(n,t):
     return np.exp(-t*(n*pi)**2)
@@ -56,3 +56,20 @@ print 'maximal relative errors for FE,BE and CN at t = 0.5:'
 print mdfe1, '\t', mdbe1, '\t',mdcn1 
 
 
+plt.figure()
+plt.plot(x,v[:,0], label="sol")
+plt.hold(1)
+plt.plot(x,FE[:,0], label="FE")
+plt.plot(x,BE[:,0], label="BE")
+plt.plot(x,CN[:,0], label="CN")
+plt.legend(loc=4)
+
+plt.figure()
+plt.plot(x,v[:,1], label="sol")
+plt.hold(1)
+plt.plot(x,FE[:,1], label="FE")
+plt.plot(x,BE[:,1], label="BE")
+plt.plot(x,CN[:,1], label="CN")
+plt.legend(loc=4)
+
+plt.show()

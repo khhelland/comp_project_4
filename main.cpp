@@ -42,7 +42,7 @@ void solve(double dt, double dx, double T, vec v,
       
       if (abs((t-0.02)) < 1e-14) out << v.t();
       else if ((abs(t - 0.5)) < 1e-14) out<<v.t();
-      //out << v.t();
+      // out << v.t();
     }
 }
 

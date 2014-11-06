@@ -10,6 +10,8 @@ v = loadtxt(filename)
 rand = zeros(len(v[:,0]))
 v = column_stack((rand,v,rand))
 x = linspace(0,1,11)
+
+
 ion()
 figure()
 line, = plot(x,v[0,:])
