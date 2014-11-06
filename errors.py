@@ -57,19 +57,19 @@ print mdfe1, '\t', mdbe1, '\t',mdcn1
 
 
 plt.figure()
-plt.plot(x,v[:,0], label="sol")
+plt.plot(x,v[:,0],'-x',label="sol")
 plt.hold(1)
-plt.plot(x,FE[:,0], label="FE")
-plt.plot(x,BE[:,0], label="BE")
-plt.plot(x,CN[:,0], label="CN")
+plt.plot(x,FE[:,0],'-x', label="FE")
+plt.plot(x,BE[:,0],'-x',label="BE")
+plt.plot(x,CN[:,0],'-x',label="CN")
 plt.legend(loc=4)
 
 plt.figure()
-plt.plot(x,v[:,1], label="sol")
+plt.plot(x,v[:,1],'-x',label="sol")
 plt.hold(1)
-plt.plot(x,FE[:,1], label="FE")
-plt.plot(x,BE[:,1], label="BE")
-plt.plot(x,CN[:,1], label="CN")
+plt.plot(x,FE[:,1],'-x',label="FE")
+plt.plot(x,BE[:,1],'-x',label="BE")
+plt.plot(x,CN[:,1],'-x',label="CN")
 plt.legend(loc=4)
 
 plt.show()

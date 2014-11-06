@@ -35,27 +35,39 @@ void solve(double dt, double dx, double T, vec v,
   //out<<v.t();
   double alpha = dt/(dx*dx);
   
+  bool print1 = false;
+  bool print2 = false;
   
   for(double t=0; t<T; t+=dt)
     {
       method(alpha,v);
       
-      if (abs((t-0.02)) < 1e-14) out << v.t();
-      else if ((abs(t - 0.5)) < 1e-14) out<<v.t();
-      // out << v.t();
+      if (t>0.02 && !print1) 
+        {
+          out << v.t(); 
+          print1 = true;
+        }
+      else if (t>0.5 && !print2)
+        {
+          out<<v.t();
+          print2 = true;
+        }
+      //out << v.t();
     }
 }
 
 int main ()
 {
-  double dt = 0.001;
+  
   double dx = 0.1;
+  double dt = 0.49*dx*dx;
   double T  = 2;
   int n = 9;
   vec v(n);
   //fill v
   for(int i = 0; i < n ; i++)
     v(i) = -1 + (i+1)*dx;
+  //cout<<v;
  
   clock_t start, mid1, mid2, end;
   start = clock();
