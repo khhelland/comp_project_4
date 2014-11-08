@@ -42,12 +42,12 @@ void solve(double dt, double dx, double T, vec v,
     {
       method(alpha,v);
       
-      if (t>0.02 && !print1) 
+      if (t>=0.02 && !print1) 
         {
           out << v.t(); 
           print1 = true;
         }
-      else if (t>0.5 && !print2)
+      else if (t>=0.5 && !print2)
         {
           out<<v.t();
           print2 = true;
@@ -61,8 +61,10 @@ int main ()
   
   double dx = 0.1;
   double dt = 0.49*dx*dx;
-  double T  = 2;
-  int n = 9;
+  int N = 1e4;
+  double T  = N*dt;
+  //cout<<T<<endl;
+  int n = 1e4;
   vec v(n);
   //fill v
   for(int i = 0; i < n ; i++)
