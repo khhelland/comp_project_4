@@ -32,16 +32,18 @@ void solve(double dt, double dx, double T, vec v,
            const char* outfile )
 {
   ofstream out(outfile);
-  //out<<v.t();
-  double alpha = dt/(dx*dx);
   
+  double alpha = dt/(dx*dx);
+ 
   bool print1 = false;
   bool print2 = false;
   
   for(double t=0; t<T; t+=dt)
     {
+      //update v
       method(alpha,v);
       
+      //print to file
       if (t>=0.02 && !print1) 
         {
           out << v.t(); 
@@ -58,18 +60,19 @@ void solve(double dt, double dx, double T, vec v,
 
 int main ()
 {
-  
+  //steps
   double dx = 0.1;
   double dt = 0.49*dx*dx;
-  int N = 1e4;
-  double T  = N*dt;
-  //cout<<T<<endl;
-  int n = 1e4;
+  
+  //total time
+  double T  = 2;
+
+  //initial state
+  int n = 9;
   vec v(n);
-  //fill v
   for(int i = 0; i < n ; i++)
     v(i) = -1 + (i+1)*dx;
-  //cout<<v;
+  
  
   clock_t start, mid1, mid2, end;
   start = clock();
