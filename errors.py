@@ -33,7 +33,7 @@ for m in range(1,300):
 
 FE = np.loadtxt('ForwardEuler.dat').T
 BE = np.loadtxt('BackwardEuler.dat').T
-CN = np.loadtxt('CrankNicholson.dat').T
+CN = np.loadtxt('CrankNicolson.dat').T
 
 dFE = np.abs((FE)/v-1)
 dBE = np.abs((BE)/v-1)
@@ -63,6 +63,9 @@ plt.plot(x,FE[:,0],'-x', label="FE")
 plt.plot(x,BE[:,0],'-x',label="BE")
 plt.plot(x,CN[:,0],'-x',label="CN")
 plt.legend(loc=4)
+plt.xlabel('x')
+plt.ylabel('v')
+plt.title('t = 0.02')
 
 plt.figure()
 plt.plot(x,v[:,1],'-x',label="sol")
@@ -71,5 +74,8 @@ plt.plot(x,FE[:,1],'-x',label="FE")
 plt.plot(x,BE[:,1],'-x',label="BE")
 plt.plot(x,CN[:,1],'-x',label="CN")
 plt.legend(loc=4)
+plt.xlabel('x')
+plt.ylabel('v')
+plt.title('t = 0.02')
 
 plt.show()

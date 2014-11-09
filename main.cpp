@@ -20,7 +20,7 @@ void BackwardEuler(double alpha, vec &u)
   trisolve(-alpha, 1+2*alpha, -alpha, u,v);
 }
 
-void CrankNicholson(double alpha, vec &u)
+void CrankNicolson(double alpha, vec &u)
 {
   ForwardEuler(alpha/2, u);
   BackwardEuler(alpha/2, u);
@@ -80,7 +80,7 @@ int main ()
   mid1 = clock();
   solve(dt, dx, T, v, *BackwardEuler, "BackwardEuler.dat");
   mid2 = clock();
-  solve(dt, dx, T, v, *CrankNicholson, "CrankNicholson.dat");
+  solve(dt, dx, T, v, *CrankNicolson, "CrankNicolson.dat");
   end = clock();
   
   double cps = CLOCKS_PER_SEC;
